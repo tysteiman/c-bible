@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 int main(int argc, char **argv)
 {
@@ -21,7 +22,10 @@ int main(int argc, char **argv)
 
     fgets(line, 100, fp);
 
-    printf("First line: %s\n", line);
+    if (strcasestr(line, argv[1]))
+    {
+        printf("LINE MATCHES SEARCH (%s): %s\n", argv[1], line);
+    }
 
     return 0;
 }
