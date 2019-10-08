@@ -8,7 +8,20 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    printf("Search param: '%s'\n", argv[1]);
+    FILE *fp;
+    fp = fopen("kjvdat.txt", "r");
+
+    if (!fp)
+    {
+        printf("ERROR: could not open file.\n");
+        return 1;
+    }
+
+    char line[100];
+
+    fgets(line, 100, fp);
+
+    printf("First line: %s\n", line);
 
     return 0;
 }
