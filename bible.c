@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define VERSE_LEN_MAX 500
+
 int main(int argc, char **argv)
 {
     if (argc < 2)
@@ -18,14 +20,16 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    char line[100];
+    char line[VERSE_LEN_MAX];
 
-    fgets(line, 100, fp);
-
-    if (strcasestr(line, argv[1]))
+    while(fgets(line, VERSE_LEN_MAX, fp))
     {
-        printf("LINE MATCHES SEARCH (%s): %s\n", argv[1], line);
+        if (strcasestr(line, argv[1]))
+        {
+            printf("LINE MATCHES SEARCH (%s): %s", argv[1], line);
+        }
     }
+
 
     return 0;
 }
