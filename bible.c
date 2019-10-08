@@ -12,7 +12,7 @@ int main(int argc, char **argv)
     }
 
     FILE *fp;
-    fp = fopen("kjvdat.txt", "r");
+    fp = fopen("kjv.txt", "r");
 
     if (!fp)
     {
@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     {
         if (strcasestr(line, argv[1]))
         {
-            printf("LINE MATCHES SEARCH (%s): %s", argv[1], line);
+            printf("%s", line);
         }
     }
 
