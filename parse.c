@@ -28,7 +28,10 @@ void parse(opts_t *opts)
         processLine(line, search, &parser, opts);
     }
 
-    printf("Number of results: %d\n", parser.results);
+    if (opts->count)
+    {
+        printf("Number of results: %d\n", parser.results);
+    }
 
     fclose(fp);
 }
