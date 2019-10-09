@@ -30,7 +30,7 @@ void parse(opts_t *opts)
 
     if (opts->count)
     {
-        printf("Number of results: %d\n", parser.results);
+        printf("Number of results: %s%d%s\n", MAIN_COLOR, parser.results, RESET_COLOR);
     }
 
     fclose(fp);
