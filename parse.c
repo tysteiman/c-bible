@@ -4,6 +4,7 @@
 
 #include "parse.h"
 #include "opts.h"
+#include "books.h"
 
 void parse(opts_t *opts)
 {
@@ -63,15 +64,32 @@ void printLine(char *line, char *find, char *search)
 
     int spaces = 0;
 
+    // abbreviation of book on this line
+    char book[3];
+
+    // find the 3 letter abbreviation for the book - the first 3 chars of the line
+    for (int b = 0; b < 3; ++b)
+    {
+        book[b] = line[b];
+    }
+
     // colorize verse text
     VERSE();
+
+    // print the full name of the book first
+    printf("%s ", booktitle(book));
 
     // with our current formatting there are always 2 spaces that are printed
     // before getting to the actual verse text -- we treat this as the verse
     // information which is colorized.
     while (spaces < 2)
     {
-        printf("%c", line[i]);
+        // don't show the book abbrivation, which comes before the first space
+        // in other words, only show text after 1st space and before 2nd
+        if (spaces == 1)
+        {
+            printf("%c", line[i]);
+        }
 
         if (line[i] == ' ')
         {
