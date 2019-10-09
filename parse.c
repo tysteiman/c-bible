@@ -3,9 +3,12 @@
 #include <stdlib.h>
 
 #include "parse.h"
+#include "opts.h"
 
-void parse(char *search)
+void parse(opts_t *opts)
 {
+    char *search = opts->search;
+
     FILE *fp;
     fp = fopen("kjv.txt", "r");
 
@@ -17,13 +20,20 @@ void parse(char *search)
 
     char line[VERSE_LEN_MAX];
 
+    parse_t parser;
+    parser.results = 0;
+
     while(fgets(line, VERSE_LEN_MAX, fp))
     {
-        processLine(line, search);
+        processLine(line, search, &parser, opts);
     }
+
+    printf("Number of results: %d\n", parser.results);
+
+    fclose(fp);
 }
 
-void processLine(char *line, char *search)
+void processLine(char *line, char *search, parse_t *parser, opts_t *opts)
 {
     char *find = strcasestr(line, search);
 
@@ -33,7 +43,14 @@ void processLine(char *line, char *search)
 
     if (find)
     {
-        printLine(findpos, line, findlen, linelen);
+        if (opts->count)
+        {
+            ++parser->results;
+        }
+        else
+        {
+            printLine(findpos, line, findlen, linelen);
+        }
     }
 }
 

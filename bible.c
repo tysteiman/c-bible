@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "opts.h"
 #include "parse.h"
 
 int main(int argc, char **argv)
@@ -10,7 +11,9 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    parse(argv[1]);
+    opts_t opts = parseflags(argc, argv);
+
+    parse(&opts);
 
     return 0;
 }

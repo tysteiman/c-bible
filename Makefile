@@ -1,2 +1,2 @@
 all:
-	@gcc -o bible bible.c parse.c
+	@gcc -o bible bible.c parse.c opts.c
