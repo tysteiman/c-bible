@@ -5,9 +5,11 @@
 
 #define VERSE_LEN_MAX 500
 #define MAIN_COLOR "\033[1;31m"
+#define VERSE_COLOR "\033[1;36m"
 #define RESET_COLOR "\033[0m"
 
 #define COLOR()(printf("%s", MAIN_COLOR))
+#define VERSE()(printf("%s", VERSE_COLOR))
 #define CLEAR()(printf("%s", RESET_COLOR))
 
 typedef struct Parse {

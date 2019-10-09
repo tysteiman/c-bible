@@ -61,6 +61,30 @@ void printLine(char *line, char *find, char *search)
 
     int i = 0;
 
+    int spaces = 0;
+
+    // colorize verse text
+    VERSE();
+
+    // with our current formatting there are always 2 spaces that are printed
+    // before getting to the actual verse text -- we treat this as the verse
+    // information which is colorized.
+    while (spaces < 2)
+    {
+        printf("%c", line[i]);
+
+        if (line[i] == ' ')
+        {
+            ++spaces;
+        }
+
+        // also bump i since we are indeed moving through the line contents
+        ++i;
+    }
+
+    // end of verse text
+    CLEAR();
+
     // print everything before the match
     for (; i < findpos; ++i)
     {
