@@ -55,7 +55,7 @@ void processLine(char *line, char *search, parse_t *parser, opts_t *opts)
 
 void printLine(char *line, char *find, char *search)
 {
-    long findpos = find - line;
+    int findpos = find - line;
     int findlen  = strlen(search);
     int linelen = strlen(line);
 
