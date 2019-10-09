@@ -40,10 +40,6 @@ void processLine(char *line, char *search, parse_t *parser, opts_t *opts)
 {
     char *find = strcasestr(line, search);
 
-    long findpos = find - line;
-    int findlen  = strlen(search);
-    int linelen = strlen(line);
-
     if (find)
     {
         if (opts->count)
@@ -52,13 +48,17 @@ void processLine(char *line, char *search, parse_t *parser, opts_t *opts)
         }
         else
         {
-            printLine(findpos, line, findlen, linelen);
+            printLine(line, find, search);
         }
     }
 }
 
-void printLine(long findpos, char *line, int findlen, int linelen)
+void printLine(char *line, char *find, char *search)
 {
+    long findpos = find - line;
+    int findlen  = strlen(search);
+    int linelen = strlen(line);
+
     int i = 0;
 
     // print everything before the match

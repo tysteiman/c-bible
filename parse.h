@@ -16,6 +16,6 @@ typedef struct Parse {
 
 void parse(opts_t *opts);
 void processLine(char *line, char *search, parse_t *parser, opts_t *opts);
-void printLine(long findpos, char *line, int findlen, int linelen);
+void printLine(char *line, char *find, char *search);
 
 #endif
