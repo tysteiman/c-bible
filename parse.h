@@ -5,7 +5,7 @@
 
 #define VERSE_LEN_MAX 500
 #define MAIN_COLOR "\033[1;31m"
-#define VERSE_COLOR "\033[1;36m"
+#define VERSE_COLOR "\033[1;32m"
 #define RESET_COLOR "\033[0m"
 
 #define COLOR()(printf("%s", MAIN_COLOR))
