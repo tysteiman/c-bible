@@ -2,6 +2,7 @@
 #define BIBLE_PARSE_H
 
 #include "opts.h"
+#include "verse.h"
 
 #define KJV "kjv.txt"
 
@@ -20,6 +21,6 @@ typedef struct Parse {
 
 void parse(opts_t *opts);
 void processLine(char *line, char *search, parse_t *parser, opts_t *opts);
-void printLine(char *line, char *find, char *search);
+void printLine(verse_t *verse, char *find, char *search);
 
 #endif

@@ -35,6 +35,8 @@ verse_t parseverse(char *line)
         ++chapteri;
     }
 
+    chapter[chapteri] = '\0';
+
     verse.chapter = atoi(chapter);
 
     char versenumber[3];
@@ -51,10 +53,12 @@ verse_t parseverse(char *line)
         ++versei;
     }
 
+    versenumber[versei] = '\0';
+
     verse.number = atoi(versenumber);
 
+    // holders for the rest of the line i.e. the verse text itself.
     int texti = 0;
-
     char text[1000];
 
     // parse rest of verse text
@@ -65,11 +69,11 @@ verse_t parseverse(char *line)
         ++texti;
     }
 
+    // terminate string so our strdup doesnt pick up extra letters.
     text[texti] = '\0';
 
+    // just strdup the string for now, fix later
     verse.text = strdup(text);
-
-    debugverse(&verse);
 
     return verse;
 }

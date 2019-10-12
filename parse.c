@@ -42,7 +42,7 @@ void processLine(char *line, char *search, parse_t *parser, opts_t *opts)
 {
     verse_t verse = parseverse(line);
 
-    char *find = strcasestr(line, search);
+    char *find = strcasestr(verse.text, search);
 
     if (find)
     {
@@ -52,56 +52,22 @@ void processLine(char *line, char *search, parse_t *parser, opts_t *opts)
         }
         else
         {
-            printLine(line, find, search);
+            printLine(&verse, find, search);
         }
     }
 }
 
-void printLine(char *line, char *find, char *search)
+void printLine(verse_t *verse, char *find, char *search)
 {
-    int findpos = find - line;
+    int findpos = find - verse->text;
     int findlen  = strlen(search);
-    int linelen = strlen(line);
+    int linelen = strlen(verse->text);
 
     int i = 0;
 
-    int spaces = 0;
-
-    // abbreviation of book on this line
-    char book[3];
-
-    // find the 3 letter abbreviation for the book - the first 3 chars of the line
-    for (int b = 0; b < 3; ++b)
-    {
-        book[b] = line[b];
-    }
-
-    // colorize verse text
     VERSE();
 
-    // print the full name of the book first
-    printf("%s ", booktitle(book));
-
-    // with our current formatting there are always 2 spaces that are printed
-    // before getting to the actual verse text -- we treat this as the verse
-    // information which is colorized.
-    while (spaces < 2)
-    {
-        // don't show the book abbrivation, which comes before the first space
-        // in other words, only show text after 1st space and before 2nd
-        if (spaces == 1)
-        {
-            printf("%c", line[i]);
-        }
-
-        if (line[i] == ' ')
-        {
-            ++spaces;
-        }
-
-        // also bump i since we are indeed moving through the line contents
-        ++i;
-    }
+    printf("%s %d:%d ", verse->book.title, verse->chapter, verse->number);
 
     // end of verse text
     CLEAR();
@@ -109,7 +75,7 @@ void printLine(char *line, char *find, char *search)
     // print everything before the match
     for (; i < findpos; ++i)
     {
-        printf("%c", line[i]);
+        printf("%c", verse->text[i]);
     }
 
     int f = 0;
@@ -120,7 +86,7 @@ void printLine(char *line, char *find, char *search)
     // print match (will be in color)
     for (; f < findlen; ++f)
     {
-        printf("%c", line[i]);
+        printf("%c", verse->text[i]);
         ++i;
     }
 
@@ -130,6 +96,6 @@ void printLine(char *line, char *find, char *search)
     // print rest of line
     for (; i < linelen; ++i)
     {
-        printf("%c", line[i]);
+        printf("%c", verse->text[i]);
     }
 }
