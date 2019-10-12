@@ -65,11 +65,9 @@ void printLine(verse_t *verse, char *find, char *search)
 
     int i = 0;
 
+    // print verse information
     VERSE();
-
     printf("%s %d:%d ", verse->book.title, verse->chapter, verse->number);
-
-    // end of verse text
     CLEAR();
 
     // print everything before the match
