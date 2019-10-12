@@ -12,5 +12,6 @@ typedef struct Verse {
 
 verse_t parseverse(char *line);
 void debugverse(verse_t *verse);
+book_t parseversebook(char *line, int *index);
 
 #endif

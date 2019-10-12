@@ -12,14 +12,7 @@ verse_t parseverse(char *line)
     // out iterator as we parse through the verse line
     int i = 0;
 
-    char abbrev[3];
-
-    for (; i <= 2; ++i)
-    {
-        abbrev[i] = line[i];
-    }
-
-    verse.book = findbook(abbrev);
+    verse.book = parseversebook(line, &i);
 
     char chapter[2];
     int chapteri = 0;
@@ -76,6 +69,18 @@ verse_t parseverse(char *line)
     verse.text = strdup(text);
 
     return verse;
+}
+
+book_t parseversebook(char *line, int *index)
+{
+    char abbrev[3];
+
+    for (; *index <= 2; ++*index)
+    {
+        abbrev[*index] = line[*index];
+    }
+
+    return findbook(abbrev);
 }
 
 void debugverse(verse_t *verse)
