@@ -5,13 +5,14 @@
 #include "parse.h"
 #include "opts.h"
 #include "books.h"
+#include "verse.h"
 
 void parse(opts_t *opts)
 {
     char *search = opts->search;
 
     FILE *fp;
-    fp = fopen("kjv.txt", "r");
+    fp = fopen(KJV, "r");
 
     if (!fp)
     {
@@ -39,6 +40,8 @@ void parse(opts_t *opts)
 
 void processLine(char *line, char *search, parse_t *parser, opts_t *opts)
 {
+    verse_t verse = parseverse(line);
+
     char *find = strcasestr(line, search);
 
     if (find)

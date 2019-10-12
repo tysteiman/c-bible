@@ -7,5 +7,6 @@ typedef struct Book {
 } book_t;
 
 char *booktitle(char *abbrev);
+book_t findbook(char *abbrev);
 
 #endif

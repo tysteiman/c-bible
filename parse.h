@@ -3,7 +3,9 @@
 
 #include "opts.h"
 
-#define VERSE_LEN_MAX 500
+#define KJV "kjv.txt"
+
+#define VERSE_LEN_MAX 1000
 #define MAIN_COLOR "\033[1;31m"
 #define VERSE_COLOR "\033[1;32m"
 #define RESET_COLOR "\033[0m"

@@ -1,5 +1,8 @@
 #include <string.h>
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "books.h"
 
 book_t books[]= {
@@ -102,13 +105,23 @@ book_t books[]= {
 
 char *booktitle(char *abbrev)
 {
+    return findbook(abbrev).title;
+}
+
+book_t findbook(char *abbrev)
+{
+    book_t book;
+
     for (int i = 0; i < sizeof(books) / sizeof(book_t); ++i)
     {
-        if (strcmp(books[i].abbrev, abbrev) == 0)
+        if (strncmp(books[i].abbrev, abbrev, 3) == 0)
         {
-            return books[i].title;
+            return books[i];
         }
     }
 
-    return "N/A";
+    book.abbrev = "?";
+    book.title = "?";
+
+    return book;
 }
