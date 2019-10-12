@@ -65,10 +65,7 @@ void printLine(verse_t *verse, char *find, char *search)
 
     int i = 0;
 
-    // print verse information
-    VERSE();
-    printf("%s %d:%d ", verse->book.title, verse->chapter, verse->number);
-    CLEAR();
+    printVerseInfo(verse);
 
     // print everything before the match
     for (; i < findpos; ++i)
@@ -96,4 +93,12 @@ void printLine(verse_t *verse, char *find, char *search)
     {
         printf("%c", verse->text[i]);
     }
+}
+
+void printVerseInfo(verse_t *verse)
+{
+    // print verse information
+    VERSE();
+    printf("%s %d:%d ", verse->book.title, verse->chapter, verse->number);
+    CLEAR();
 }

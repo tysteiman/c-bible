@@ -22,5 +22,6 @@ typedef struct Parse {
 void parse(opts_t *opts);
 void processLine(char *line, char *search, parse_t *parser, opts_t *opts);
 void printLine(verse_t *verse, char *find, char *search);
+void printVerseInfo(verse_t *verse);
 
 #endif
