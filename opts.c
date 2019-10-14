@@ -18,10 +18,10 @@ opts_t parseflags(int argc, char **argv)
 
     opterr = 0;
 
-    while ((c = getopt (argc, argv, "cdb:")) != -1)
+    while ((c = getopt (argc, argv, "ndb:")) != -1)
         switch (c)
         {
-            case 'c':
+            case 'n':
                 opts.count = TRUE;
                 break;
             case 'd':

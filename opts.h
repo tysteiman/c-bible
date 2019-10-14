@@ -2,7 +2,7 @@
 #define BIBLE_OPTS_H
 
 typedef struct Opts {
-    int count;    // -c
+    int count;    // -n
     int debug;    // -d
     char *book;   // -b
     char *search; // extra param
