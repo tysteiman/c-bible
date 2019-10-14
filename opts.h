@@ -2,9 +2,10 @@
 #define BIBLE_OPTS_H
 
 typedef struct Opts {
-    int count;
-    int debug;
-    char *search;
+    int count;    // -c
+    int debug;    // -d
+    char *book;   // -b
+    char *search; // extra param
 } opts_t;
 
 opts_t parseflags(int argc, char **argv);

@@ -17,7 +17,7 @@ opts_t parseflags(int argc, char **argv)
 
     opterr = 0;
 
-    while ((c = getopt (argc, argv, "cd")) != -1)
+    while ((c = getopt (argc, argv, "cdb:")) != -1)
         switch (c)
         {
             case 'c':
@@ -25,6 +25,9 @@ opts_t parseflags(int argc, char **argv)
                 break;
             case 'd':
                 opts.debug = TRUE;
+                break;
+            case 'b':
+                opts.book = optarg;
                 break;
             default:
                 printf("Unkown flag\n");
@@ -51,6 +54,7 @@ void debug(opts_t *opts)
     printf("{\n");
     printf("\tCount: %s\n", opts->count ? "TRUE" : "FALSE");
     printf("\tDebug: %s\n", opts->debug ? "TRUE" : "FALSE");
+    printf("\tBook: %s\n", opts->book);
     printf("\tSearch: %s\n", opts->search);
     printf("}\n");
     printf("\n");
