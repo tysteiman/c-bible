@@ -41,28 +41,26 @@ void parse(opts_t *opts)
 
 void processLine(char *line, char *search, parse_t *parser, opts_t *opts)
 {
+    // parse the line into a verse format that can be easily parsed and evaluated further.
     verse_t verse = parseverse(line);
 
+    // check to see if there is a substring in the current verse of the user's search string
     char *find = strcasestr(verse.text, search);
 
+    // bool that determins whether or not we print the verse or not
     int print = TRUE;
 
+    // if the book flag is passed, evaluate the book to see if the flag matches the verse's book abbrev or title
     if (opts->book)
     {
+        // if abbrev nor title match, set print to false
         if (strcasecmp(opts->book, verse.book.abbrev) != 0 && strcasecmp(opts->book, verse.book.title) != 0)
         {
             print = FALSE;
         }
     }
 
-    // TODO we need to add a secondary check here for the flags that were passed in *opts.
-    //      whenever we have a book, chapter, verse stuff we have to check to see if it
-    //      is within the chapter or verse limits.
-    //
-    //      I'm thinking those search patterns should probably be within the search text itself
-    //      however im not sure... maybe i want to search for a word within a range of books
-    //      or something like that.
-
+    // check for both `find` substring and `print` boolean to determine whether or not we should print.
     if (find && print)
     {
         if (opts->count)
