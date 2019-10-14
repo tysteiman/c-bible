@@ -5,13 +5,13 @@
 
 int main(int argc, char **argv)
 {
-    if (argc < 2)
+    opts_t opts = parseflags(argc, argv);
+
+    if (!opts.search)
     {
         printf("ERROR: Must supply a search argument.\n");
         return 1;
     }
-
-    opts_t opts = parseflags(argc, argv);
 
     parse(&opts);
 
