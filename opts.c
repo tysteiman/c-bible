@@ -11,6 +11,7 @@ opts_t parseflags(int argc, char **argv)
     opts_t opts;
     opts.count = FALSE;
     opts.debug = FALSE;
+    opts.book = NULL;
 
     int index;
     int c;
