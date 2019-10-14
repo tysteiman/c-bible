@@ -2,6 +2,11 @@
 
 The easiest way to quickly search biblical texts from a unix terminal
 
+# Dependencies
+
+- make
+- gcc
+
 # Installation
 
     make
