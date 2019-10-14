@@ -8,6 +8,10 @@
 #include "verse.h"
 #include "lib.h"
 
+/**
+ * Main entry point to our parse functionality. This is what will open up the text,
+ * scan through line-by-line, evaluating the user's search.
+ */
 void parse(opts_t *opts)
 {
     char *search = opts->search;
@@ -39,6 +43,11 @@ void parse(opts_t *opts)
     fclose(fp);
 }
 
+/**
+ * Main entry point into parsing an individual line. This is where we break down the line
+ * into a verse_t object in order to parse the line easiser and pass the verse around.
+ * Up to this point we haven't looked at the verse itself or done any matching.
+ */
 void processLine(char *line, char *search, parse_t *parser, opts_t *opts)
 {
     // parse the line into a verse format that can be easily parsed and evaluated further.
@@ -47,21 +56,13 @@ void processLine(char *line, char *search, parse_t *parser, opts_t *opts)
     // check to see if there is a substring in the current verse of the user's search string
     char *find = strcasestr(verse.text, search);
 
-    // bool that determins whether or not we print the verse or not
-    int print = TRUE;
+    // check to see whether or not we have verse flags to narrow down the search by book, chapter, verse, etc.
+    // if the line doesn't match the more specific flags, match is set to FALSE and will not print.
+    bool match = evalverseflags(opts, &verse);
 
-    // if the book flag is passed, evaluate the book to see if the flag matches the verse's book abbrev or title
-    if (opts->book)
-    {
-        // if abbrev nor title match, set print to false
-        if (strcasecmp(opts->book, verse.book.abbrev) != 0 && strcasecmp(opts->book, verse.book.title) != 0)
-        {
-            print = FALSE;
-        }
-    }
-
-    // check for both `find` substring and `print` boolean to determine whether or not we should print.
-    if (find && print)
+    // check for both `find` substring and `match` boolean to determine whether or not we should print.
+    // this is so we check not only is there a substring but the verseflags also match.
+    if (find && match)
     {
         if (opts->count)
         {
@@ -74,6 +75,31 @@ void processLine(char *line, char *search, parse_t *parser, opts_t *opts)
     }
 }
 
+/**
+ * Evaluate the more specific verse flags as in book, chapter, verse. This will run
+ * case insensitive matching on book names. and will match on either abbrev or title.
+ */
+bool evalverseflags(opts_t *opts, verse_t *verse)
+{
+    // bool that determins whether or not we print the verse or not
+    bool match = TRUE;
+
+    // if the book flag is passed, evaluate the book to see if the flag matches the verse's book abbrev or title
+    if (opts->book)
+    {
+        // if abbrev nor title match, set print to false
+        if (strcasecmp(opts->book, verse->book.abbrev) != 0 && strcasecmp(opts->book, verse->book.title) != 0)
+        {
+            match = FALSE;
+        }
+    }
+
+    return match;
+}
+
+/**
+ * Function responsible for printing out the individual verse_t object.
+ */
 void printLine(verse_t *verse, char *find, char *search)
 {
     int findpos = find - verse->text;
@@ -112,6 +138,9 @@ void printLine(verse_t *verse, char *find, char *search)
     }
 }
 
+/**
+ * Quick helper to print out the verse meta information i.e. [book chapter:verse]
+ */
 void printVerseInfo(verse_t *verse)
 {
     // print verse information

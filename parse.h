@@ -3,6 +3,7 @@
 
 #include "opts.h"
 #include "verse.h"
+#include "lib.h"
 
 #define KJV "kjv.txt"
 
@@ -23,5 +24,6 @@ void parse(opts_t *opts);
 void processLine(char *line, char *search, parse_t *parser, opts_t *opts);
 void printLine(verse_t *verse, char *find, char *search);
 void printVerseInfo(verse_t *verse);
+bool evalverseflags(opts_t *opts, verse_t *verse);
 
 #endif
