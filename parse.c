@@ -126,33 +126,9 @@ bool evalchapterflag(char *opt, int chapter)
         }
         else
         {
-            char from[3];
-            char to[4];
+            range_t range = parserange(opt);
 
-            int i = 0;
-
-            while (opt[i] != '-')
-            {
-                from[i] = opt[i];
-                ++i;
-            }
-
-            from[i] = '\0';
-
-            ++i;
-
-            int toi = 0;
-
-            for (; i < strlen(opt); ++i)
-            {
-                to[toi] = opt[i];
-                ++toi;
-            }
-
-            int intfrom = atoi(from);
-            int intto = atoi(to);
-
-            if (chapter < intfrom || chapter > intto)
+            if (chapter < range.from || chapter > range.to)
             {
                 return FALSE;
             }
@@ -173,6 +149,38 @@ bool hasrange(char *text)
     }
 
     return FALSE;
+}
+
+range_t parserange(char *text)
+{
+    char from[3];
+    char to[4];
+
+    int i = 0;
+
+    while (text[i] != '-')
+    {
+        from[i] = text[i];
+        ++i;
+    }
+
+    from[i] = '\0';
+
+    ++i;
+
+    int toi = 0;
+
+    for (; i < strlen(text); ++i)
+    {
+        to[toi] = text[i];
+        ++toi;
+    }
+
+    to[toi] = '\0';
+
+    range_t range = { atoi(from), atoi(to) };
+
+    return range;
 }
 
 /**

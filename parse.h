@@ -20,6 +20,11 @@ typedef struct Parse {
     int results;
 } parse_t;
 
+typedef struct Range {
+    int from;
+    int to;
+} range_t;
+
 void parse(opts_t *opts);
 void processLine(char *line, char *search, parse_t *parser, opts_t *opts);
 void printLine(verse_t *verse, char *find, char *search);
@@ -28,5 +33,6 @@ bool evalverseflags(opts_t *opts, verse_t *verse);
 bool evalbookflag(char *opt, book_t *book);
 bool evalchapterflag(char *opt, int chapter);
 bool hasrange(char *text);
+range_t parserange(char *text);
 
 #endif
