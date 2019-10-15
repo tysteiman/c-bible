@@ -31,7 +31,7 @@ void printLine(verse_t *verse, char *find, char *search);
 void printVerseInfo(verse_t *verse);
 bool evalverseflags(opts_t *opts, verse_t *verse);
 bool evalbookflag(char *opt, book_t *book);
-bool evalchapterflag(char *opt, int chapter);
+bool evalrange(char *opt, int target);
 bool hasrange(char *text);
 range_t parserange(char *text);
 

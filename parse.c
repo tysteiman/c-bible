@@ -89,7 +89,12 @@ bool evalverseflags(opts_t *opts, verse_t *verse)
         return FALSE;
     }
 
-    if (!evalchapterflag(opts->chapter, verse->chapter))
+    if (!evalrange(opts->chapter, verse->chapter))
+    {
+        return FALSE;
+    }
+
+    if (!evalrange(opts->verse, verse->number))
     {
         return FALSE;
     }
@@ -112,14 +117,13 @@ bool evalbookflag(char *opt, book_t *book)
     return TRUE;
 }
 
-bool evalchapterflag(char *opt, int chapter)
+bool evalrange(char *opt, int target)
 {
-    // check for the chapter number as well.
     if (opt)
     {
         if (!hasrange(opt))
         {
-            if (chapter != atoi(opt))
+            if (target != atoi(opt))
             {
                 return FALSE;
             }
@@ -128,7 +132,7 @@ bool evalchapterflag(char *opt, int chapter)
         {
             range_t range = parserange(opt);
 
-            if (chapter < range.from || chapter > range.to)
+            if (target < range.from || target > range.to)
             {
                 return FALSE;
             }

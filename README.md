@@ -31,6 +31,10 @@ The easiest way to quickly search biblical texts from a unix terminal
         ./bible -b mat -c 5 blessed   # will search in all of chapter Matthew 5
         ./bible -b mat -c 5-7 blessed # will search in all of Matthew 5-7
 
+    -v: verse -- specify verse or verse range to search within.
+
+        ./bible -b mat -c 4 -v 1-7 jesus # search Matthew 4:1-7
+
     -n: count mode -- prints number of results only
 
         ./bible -c babylon
