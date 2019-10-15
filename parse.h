@@ -4,6 +4,7 @@
 #include "opts.h"
 #include "verse.h"
 #include "lib.h"
+#include "range.h"
 
 #define KJV "kjv.txt"
 
@@ -19,11 +20,6 @@
 typedef struct Parse {
     int results;
 } parse_t;
-
-typedef struct Range {
-    int from;
-    int to;
-} range_t;
 
 void parse(opts_t *opts);
 void processLine(char *line, char *search, parse_t *parser, opts_t *opts);
