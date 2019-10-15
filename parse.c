@@ -132,6 +132,12 @@ bool evalrange(char *opt, int target)
         {
             range_t range = parserange(opt);
 
+            // if we dont have a to range, treat it as ff, rest of item
+            if (!range.to)
+            {
+                range.to = 999;
+            }
+
             if (target < range.from || target > range.to)
             {
                 return FALSE;
