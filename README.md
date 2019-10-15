@@ -43,6 +43,22 @@ The easiest way to quickly search biblical texts from a unix terminal
 
     -d: debug mode -- print debug information
 
+### NOTE
+
+You do not have to specify a search param. Just typing
+
+    ./bible
+
+Will output the entire text. Individual flags make the query more specific e.g.:
+
+    ./bible -b Matthew
+
+prints out the entire book of Matthew.
+
+    ./bible -b Matthew -c 5
+
+prints out all of Matthew 5, etc. You can simply keep adding flags to get more specific.
+
 ## Available books for searching
 
     book_t books[]= {
