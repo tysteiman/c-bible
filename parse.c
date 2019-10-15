@@ -117,17 +117,7 @@ bool evalchapterflag(char *opt, int chapter)
     // check for the chapter number as well.
     if (opt)
     {
-        bool range = FALSE;
-
-        for (int i = 0; i < strlen(opt); ++i)
-        {
-            if (opt[i] == '-')
-            {
-                range = TRUE;
-            }
-        }
-
-        if (!range)
+        if (!hasrange(opt))
         {
             if (chapter != atoi(opt))
             {
@@ -170,6 +160,19 @@ bool evalchapterflag(char *opt, int chapter)
     }
 
     return TRUE;
+}
+
+bool hasrange(char *text)
+{
+    for (int i = 0; i < strlen(text); ++i)
+    {
+        if (text[i] == '-')
+        {
+            return TRUE;
+        }
+    }
+
+    return FALSE;
 }
 
 /**
