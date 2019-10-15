@@ -84,17 +84,92 @@ bool evalverseflags(opts_t *opts, verse_t *verse)
     // bool that determins whether or not we print the verse or not
     bool match = TRUE;
 
-    // if the book flag is passed, evaluate the book to see if the flag matches the verse's book abbrev or title
-    if (opts->book)
+    if (!evalbookflag(opts->book, &verse->book))
     {
-        // if abbrev nor title match, set print to false
-        if (strcasecmp(opts->book, verse->book.abbrev) != 0 && strcasecmp(opts->book, verse->book.title) != 0)
-        {
-            match = FALSE;
-        }
+        return FALSE;
+    }
+
+    if (!evalchapterflag(opts->chapter, verse->chapter))
+    {
+        return FALSE;
     }
 
     return match;
+}
+
+bool evalbookflag(char *opt, book_t *book)
+{
+    // if the book flag is passed, evaluate the book to see if the flag matches the verse's book abbrev or title
+    if (opt)
+    {
+        // if abbrev nor title match, set print to false
+        if (strcasecmp(opt, book->abbrev) != 0 && strcasecmp(opt, book->title) != 0)
+        {
+            return FALSE;
+        }
+    }
+
+    return TRUE;
+}
+
+bool evalchapterflag(char *opt, int chapter)
+{
+    // check for the chapter number as well.
+    if (opt)
+    {
+        bool range = FALSE;
+
+        for (int i = 0; i < strlen(opt); ++i)
+        {
+            if (opt[i] == '-')
+            {
+                range = TRUE;
+            }
+        }
+
+        if (!range)
+        {
+            if (chapter != atoi(opt))
+            {
+                return FALSE;
+            }
+        }
+        else
+        {
+            char from[3];
+            char to[4];
+
+            int i = 0;
+
+            while (opt[i] != '-')
+            {
+                from[i] = opt[i];
+                ++i;
+            }
+
+            from[i] = '\0';
+
+            ++i;
+
+            int toi = 0;
+
+            for (; i < strlen(opt); ++i)
+            {
+                to[toi] = opt[i];
+                ++toi;
+            }
+
+            int intfrom = atoi(from);
+            int intto = atoi(to);
+
+            if (chapter < intfrom || chapter > intto)
+            {
+                return FALSE;
+            }
+        }
+    }
+
+    return TRUE;
 }
 
 /**

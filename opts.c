@@ -12,13 +12,15 @@ opts_t parseflags(int argc, char **argv)
     opts.count = FALSE;
     opts.debug = FALSE;
     opts.book = NULL;
+    opts.chapter = NULL;
+    opts.verse = NULL;
 
     int index;
     int c;
 
     opterr = 0;
 
-    while ((c = getopt (argc, argv, "ndb:")) != -1)
+    while ((c = getopt (argc, argv, "ndb:c:v:")) != -1)
         switch (c)
         {
             case 'n':
@@ -29,6 +31,12 @@ opts_t parseflags(int argc, char **argv)
                 break;
             case 'b':
                 opts.book = optarg;
+                break;
+            case 'c':
+                opts.chapter = optarg;
+                break;
+            case 'v':
+                opts.verse = optarg;
                 break;
             default:
                 printf("Unkown flag\n");
@@ -56,6 +64,8 @@ void debug(opts_t *opts)
     printf("\tCount: %s\n", opts->count ? "TRUE" : "FALSE");
     printf("\tDebug: %s\n", opts->debug ? "TRUE" : "FALSE");
     printf("\tBook: %s\n", opts->book);
+    printf("\tChapter: %s\n", opts->chapter);
+    printf("\tVerse: %s\n", opts->verse);
     printf("\tSearch: %s\n", opts->search);
     printf("}\n");
     printf("\n");

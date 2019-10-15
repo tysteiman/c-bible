@@ -25,5 +25,7 @@ void processLine(char *line, char *search, parse_t *parser, opts_t *opts);
 void printLine(verse_t *verse, char *find, char *search);
 void printVerseInfo(verse_t *verse);
 bool evalverseflags(opts_t *opts, verse_t *verse);
+bool evalbookflag(char *opt, book_t *book);
+bool evalchapterflag(char *opt, int chapter);
 
 #endif

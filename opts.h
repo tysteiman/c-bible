@@ -5,6 +5,8 @@ typedef struct Opts {
     int count;    // -n
     int debug;    // -d
     char *book;   // -b
+    char *chapter;  // -c
+    char *verse;    // -v
     char *search; // extra param
 } opts_t;
 
