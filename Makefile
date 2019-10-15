@@ -9,8 +9,8 @@ all:
 	@gcc -o bible $(SOURCE_FILES)
 
 debug:
-	@gcc -g -o bible $(SOURCE_FILES)
+	@gcc -g -o bible-dbg $(SOURCE_FILES)
 
 gdb:
 	@make debug
-	gdb bible
+	gdb bible-dbg
