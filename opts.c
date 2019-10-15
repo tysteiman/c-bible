@@ -6,7 +6,7 @@
 #include "opts.h"
 #include "lib.h"
 
-opts_t parseflags(int argc, char **argv)
+opts_t defaultopts()
 {
     opts_t opts;
     opts.count = FALSE;
@@ -14,6 +14,14 @@ opts_t parseflags(int argc, char **argv)
     opts.book = NULL;
     opts.chapter = NULL;
     opts.verse = NULL;
+    opts.search = NULL;
+
+    return opts;
+}
+
+opts_t parseflags(int argc, char **argv)
+{
+    opts_t opts = defaultopts();
 
     int index;
     int c;

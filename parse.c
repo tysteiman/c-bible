@@ -54,22 +54,40 @@ void processLine(char *line, char *search, parse_t *parser, opts_t *opts)
     // parse the line into a verse format that can be easily parsed and evaluated further.
     verse_t verse = parseverse(line);
 
+    char *find;
+
     // check to see if there is a substring in the current verse of the user's search string
-    char *find = strcasestr(verse.text, search);
+    if (search)
+    {
+        find = strcasestr(verse.text, search);
+    }
 
     // check to see whether or not we have verse flags to narrow down the search by book, chapter, verse, etc.
     // if the line doesn't match the more specific flags, match is set to FALSE and will not print.
     bool match = evalverseflags(opts, &verse);
 
-    // check for both `find` substring and `match` boolean to determine whether or not we should print.
-    // this is so we check not only is there a substring but the verseflags also match.
-    if (find && match)
+    // we don't always have to have a search since we can query by book, chapter or whatever we want.
+    // since that's the case only check the find && match if we actually have a search param.
+    // otherwise we will just check the match flag.
+    if (search)
     {
-        if (opts->count)
+        // check for both `find` substring and `match` boolean to determine whether or not we should print.
+        // this is so we check not only is there a substring but the verseflags also match.
+        if (find && match)
         {
-            ++parser->results;
+            if (opts->count)
+            {
+                ++parser->results;
+            }
+            else
+            {
+                printLine(&verse, find, search);
+            }
         }
-        else
+    }
+    else
+    {
+        if (match)
         {
             printLine(&verse, find, search);
         }
@@ -126,6 +144,17 @@ bool evalbookflag(char *opt, book_t *book)
  */
 void printLine(verse_t *verse, char *find, char *search)
 {
+    // when we don't have a search param we can just print the verse info
+    // and the entire verse text onto the screen as is since we are printing
+    // according to a book, chapter, verse, etc, not a search.
+    if (!search)
+    {
+        printVerseInfo(verse);
+        printf("%s", verse->text);
+
+        return;
+    }
+
     int findpos = find - verse->text;
     int findlen  = strlen(search);
     int linelen = strlen(verse->text);
