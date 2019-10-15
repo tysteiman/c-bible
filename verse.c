@@ -14,7 +14,7 @@ verse_t parseverse(char *line)
 
     verse.book = parseversebook(line, &i);
 
-    char chapter[2];
+    char chapter[3];
     int chapteri = 0;
 
     // we should be able to shift i to +1 since we should be on a space on the next char...
@@ -32,7 +32,7 @@ verse_t parseverse(char *line)
 
     verse.chapter = atoi(chapter);
 
-    char versenumber[3];
+    char versenumber[4];
     int versei = 0;
 
     // bump again since we are on the : right now
