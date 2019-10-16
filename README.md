@@ -1,5 +1,7 @@
 # c-bible
 
+[![Build Status](https://travis-ci.com/tysteiman/c-bible.svg?branch=master)](https://travis-ci.com/tysteiman/c-bible)
+
 The easiest way to quickly search biblical texts from a unix terminal
 
 # Dependencies
