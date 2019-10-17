@@ -1,2 +1,2 @@
 language: c
-script: make
+script: make && ./bible -b mat -c 5-8 && ./bible 'jesus wept' && ./bible -b leviticus -c 17 -v 1-11
